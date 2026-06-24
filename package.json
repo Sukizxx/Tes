@@ -1,21 +1,40 @@
 {
-  "name": "fuolsatck",
-  "version": "0.1.0",
+  "name": "neiroai",
+  "version": "1.0.0",
   "private": true,
+  "description": "NeiroAI — premium multi-model AI workspace",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "16.2.9",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "framer-motion": "11.3.8",
+    "three": "0.166.1",
+    "@react-three/fiber": "8.16.8",
+    "@react-three/drei": "9.108.3",
+    "highlight.js": "11.10.0",
+    "jszip": "3.10.1",
+    "mammoth": "1.8.0",
+    "pdfjs-dist": "4.4.168",
+    "dompurify": "3.1.6"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "typescript": "^5"
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "@types/three": "0.166.0",
+    "@types/dompurify": "3.0.5",
+    "autoprefixer": "10.4.19",
+    "postcss": "8.4.39",
+    "tailwindcss": "3.4.6",
+    "typescript": "5.5.3",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.5"
   }
 }

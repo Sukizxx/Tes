@@ -1,49 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────────────────────────────────────────────────────
+   NeiroAI global styles
+   Spec: no global horizontal scroll, all text wraps, 60fps,
+   premium monochrome dark theme.
+   ─────────────────────────────────────────────────────────── */
+
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
-}
-
-html {
-  height: 100%;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --primary: #000000;
+  --secondary: #1a1a1a;
+  --tertiary: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #bfbfbf;
+  --border: #333333;
+  --hover: #3a3a3a;
+  /* mobile viewport height fix (dvh fallback) */
+  --app-height: 100dvh;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
+}
+
+html,
+body {
   margin: 0;
+  padding: 0;
+  background: var(--primary);
+  color: var(--text-primary);
+  /* GLOBAL SCROLL RULES — no horizontal scroll on the page */
+  overflow-x: hidden;
+  max-width: 100vw;
+  font-family: Inter, Geist, "SF Pro", "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+body {
+  min-height: 100vh;
+  min-height: var(--app-height);
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* TEXT OVERFLOW FIX — everything wraps, nothing escapes the screen */
+p,
+span,
+li,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* The ONLY place horizontal scroll is allowed: inside code embeds */
+.embed-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbars — thin, monochrome, unobtrusive */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--hover);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Touch optimization — comfortable tap targets (spec: 44px+) */
+button,
+a[role="button"],
+.tap-target {
+  touch-action: manipulation;
+}
+
+/* Remove tap highlight flash on mobile */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* Focus ring — visible but elegant */
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+/* Respect reduced motion — disable heavy animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+/* Utility: hide scrollbar but keep scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth momentum scroll regions */
+.scroll-region {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Streaming caret */
+.stream-caret::after {
+  content: "▋";
+  margin-left: 1px;
+  color: var(--text-secondary);
+  animation: blink 1s steps(2, start) infinite;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* highlight.js theme override to match monochrome dark */
+.hljs {
+  background: transparent !important;
+  color: #e6e6e6;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in {
+  color: #c4b5fd;
+}
+.hljs-string,
+.hljs-attr {
+  color: #a7f3d0;
+}
+.hljs-number,
+.hljs-literal {
+  color: #fcd34d;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #6b7280;
+  font-style: italic;
+}
+.hljs-function,
+.hljs-title {
+  color: #93c5fd;
+}
+.hljs-tag,
+.hljs-name {
+  color: #f9a8d4;
 }
